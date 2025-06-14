@@ -1,0 +1,134 @@
+.game-board {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.game-board:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+
+.board-row {
+  display: flex;
+  width: 100%;
+}
+
+.board-cell {
+  width: calc(100% / 9);
+  aspect-ratio: 1/1;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+.board-cell:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.03);
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(255, 153, 0, 0.3);
+}
+
+.board-cell.selected {
+  background-color: rgba(255, 153, 0, 0.2);
+  box-shadow: inset 0 0 0 2px var(--aws-orange);
+  transform: scale(1.03);
+  z-index: 2;
+}
+
+.board-cell.path-cell {
+  background-color: rgba(255, 153, 0, 0.1);
+}
+
+.board-cell.next-position::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 153, 0, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+.icon-container {
+  width: 75%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease-out;
+}
+
+.icon {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.board-cell:hover .icon {
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
+  transform: scale(1.1);
+}
+
+.icon-container.animate {
+  animation: popIn 0.5s ease-out;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.2);
+    opacity: 0.5;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .game-board {
+    border-radius: 8px;
+  }
+
+  .board-cell:hover {
+    transform: none;
+  }
+
+  .icon-container {
+    width: 85%;
+    height: 85%;
+  }
+}
